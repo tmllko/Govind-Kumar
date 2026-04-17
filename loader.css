@@ -1,0 +1,160 @@
+/* ═══════════════════════════════════════
+   TERMINAL BOOT LOADER
+═══════════════════════════════════════ */
+#terminal-loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 5vh 6vw;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    overflow: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#terminal-loader.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* CRT flicker on the whole loader */
+#terminal-loader::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.07) 0px,
+        rgba(0,0,0,0.07) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1;
+    animation: crtFlicker 0.15s infinite;
+}
+@keyframes crtFlicker {
+    0%   { opacity: 1; }
+    92%  { opacity: 1; }
+    93%  { opacity: 0.85; }
+    94%  { opacity: 1; }
+    97%  { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+/* GREEN phosphor glow on everything */
+#terminal-loader * { color: #00ff41; }
+
+.term-header {
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    color: #00ff41 !important;
+    opacity: 0.6;
+    margin-bottom: 2vh;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+#term-output {
+    width: 100%;
+    max-height: 65vh;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.term-line {
+    font-size: clamp(0.7rem, 1.6vw, 0.88rem);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-all;
+    opacity: 0;
+    animation: lineIn 0.05s forwards;
+    letter-spacing: 0.03em;
+}
+@keyframes lineIn { to { opacity: 1; } }
+
+.term-line.prompt   { color: #00ff41 !important; }
+.term-line.info     { color: #00bcd4 !important; }
+.term-line.ok       { color: #00e676 !important; }
+.term-line.warn     { color: #ffeb3b !important; }
+.term-line.err      { color: #ff1744 !important; }
+.term-line.dim      { color: #1a5c20 !important; }
+.term-line.head     { color: #00ff41 !important; font-size: clamp(0.9rem, 2vw, 1.1rem); letter-spacing: 0.2em; }
+.term-line.blank    { min-height: 0.8em; opacity: 1; }
+
+/* progress bar */
+.term-bar-wrap {
+    width: 100%;
+    margin-top: 0.4em;
+    opacity: 0;
+    animation: lineIn 0.05s forwards;
+}
+.term-bar-label {
+    font-size: clamp(0.65rem, 1.4vw, 0.8rem);
+    color: #00bcd4 !important;
+    margin-bottom: 0.2em;
+    letter-spacing: 0.08em;
+}
+.term-bar-track {
+    height: 6px;
+    background: #0a1a0a;
+    border: 1px solid #003300;
+    border-radius: 1px;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0,255,65,0.15);
+}
+.term-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff41, #00e676);
+    box-shadow: 0 0 12px #00ff41;
+    width: 0%;
+    transition: width 0.05s linear;
+}
+
+/* blinking cursor at bottom */
+.term-cursor-line {
+    margin-top: 1.5vh;
+    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    color: #00ff41 !important;
+    opacity: 0;
+    z-index: 2;
+    position: relative;
+    transition: opacity 0.3s;
+}
+.term-cursor-line.show { opacity: 1; }
+.term-cursor-line::after {
+    content: '█';
+    animation: blink 0.8s step-end infinite;
+    margin-left: 2px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ascii art logo */
+.term-ascii {
+    font-size: clamp(0.35rem, 0.9vw, 0.55rem);
+    line-height: 1.15;
+    color: #003d00 !important;
+    margin-bottom: 1.5vh;
+    white-space: pre;
+    opacity: 0;
+    animation: lineIn 0.05s 0.1s forwards;
+    text-shadow: 0 0 8px #00ff41;
+}
+
+/* glitch burst on certain lines */
+.glitch-burst {
+    animation: gburst 0.3s steps(1) forwards !important;
+}
+@keyframes gburst {
+    0%  { opacity:1; transform: translate(0,0); color: #ff1744 !important; }
+    20% { transform: translate(-3px, 1px); color: #00ff41 !important; }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); color: #00bcd4 !important; }
+    80% { transform: translate(0,0); color: #00ff41 !important; }
+    100%{ opacity:1; transform: translate(0,0); }
+}
