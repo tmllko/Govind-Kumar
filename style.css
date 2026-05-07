@@ -27,25 +27,10 @@ body {
     line-height:1.6;
     overflow-x:hidden;
     position:relative;
-    cursor:none;
+
 }
 
-.cursor-dot {
-    position:fixed; width:8px; height:8px;
-    background:var(--neon-cyan); border-radius:50%;
-    pointer-events:none; z-index:99999;
-    transform:translate(-50%,-50%);
-    transition:transform 0.05s;
-    box-shadow:0 0 12px var(--neon-cyan),0 0 24px var(--neon-cyan);
-}
-.cursor-ring {
-    position:fixed; width:32px; height:32px;
-    border:1px solid rgba(0,255,249,0.5); border-radius:50%;
-    pointer-events:none; z-index:99998;
-    transform:translate(-50%,-50%);
-    transition:transform 0.12s ease,width 0.2s,height 0.2s,border-color 0.2s;
-}
-.cursor-ring.active { width:48px; height:48px; border-color:var(--neon-violet); box-shadow:0 0 20px var(--neon-violet); }
+
 
 #bg-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-3; pointer-events:none; }
 
@@ -112,7 +97,7 @@ h1,h2,h3,.logo,.section-title,.glitch-text { font-family:'Orbitron',monospace; f
     font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase;
     transition:color 0.3s,text-shadow 0.3s; position:relative; padding:0.3rem 0;
 }
-.nav-links a::before { content:'//'; margin-right:4px; opacity:0; color:var(--neon-cyan); transition:opacity 0.2s; font-size:0.75rem; }
+
 .nav-links a::after {
     content:''; position:absolute; bottom:0; left:0;
     width:0; height:1px;
@@ -140,7 +125,7 @@ h1,h2,h3,.logo,.section-title,.glitch-text { font-family:'Orbitron',monospace; f
     font-family:'Share Tech Mono',monospace; font-size:0.9rem;
     color:var(--neon-green); letter-spacing:0.25em; text-transform:uppercase; margin-bottom:0.8rem;
 }
-.greeting::before { content:'> '; color:var(--neon-cyan); }
+
 
 h1.glitch-text {
     font-size:4.2rem; font-weight:900; line-height:1.05; margin-bottom:1rem;
@@ -261,7 +246,7 @@ h1.glitch-text::after {
     color:#fff; text-shadow:0 0 30px rgba(0,255,249,0.4);
     position:relative; letter-spacing:0.1em;
 }
-.section-title::before { content:'// '; color:var(--neon-cyan); font-size:1rem; vertical-align:middle; opacity:0.7; }
+
 .section-title::after { content:''; display:block; width:80px; height:2px; background:linear-gradient(90deg,var(--neon-cyan),var(--neon-violet)); margin:0.8rem auto 0; box-shadow:0 0 15px var(--neon-cyan); }
 
 .glass-card {
